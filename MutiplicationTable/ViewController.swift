@@ -26,8 +26,17 @@ class ViewController: UIViewController {
         
         // Width
         // height
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
         
         // text label
+        var numberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        numberLabel.backgroundColor = UIColor.orangeColor()
+        numberLabel.text = "10"
+        numberLabel.textAlignment = NSTextAlignment.Center
+        numberLabel.font = UIFont.boldSystemFontOfSize(40)
+        
+        view.addSubview(numberLabel)
         
         // view behind text label
         
