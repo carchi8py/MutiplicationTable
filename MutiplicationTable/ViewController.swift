@@ -12,9 +12,14 @@ class ViewController: UIViewController {
     
     // Create properties
     var numberLabel: UILabel!
+    var numberBarView: UIView!
+    var sliderBarView: UIView!
+    var numberSlider: UISlider!
+    var textView: UITextView!
+    
     var number: Int = 10
     var minValue = 1
-    var maxValue = 12
+    var maxValue = 99
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +43,7 @@ class ViewController: UIViewController {
         // text label
         numberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         numberLabel.backgroundColor = UIColor.orangeColor()
-        numberLabel.text = "10"
+        numberLabel.text = "\(number)"
         numberLabel.textAlignment = NSTextAlignment.Center
         numberLabel.font = UIFont.boldSystemFontOfSize(40)
         
@@ -47,7 +52,7 @@ class ViewController: UIViewController {
         // view behind text label
         
         let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
-        var numberBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: screenWidth, height: 80))
+        numberBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: screenWidth, height: 80))
         numberBarView.backgroundColor = UIColor.darkGrayColor()
         
         view.addSubview(numberBarView)
@@ -56,14 +61,14 @@ class ViewController: UIViewController {
         
         // Slider View
         //If you use numberBarView.bound.height it is the hight of the object, not where it is on the screen.
-        var sliderBarView = UIView(frame: CGRect(x: 0, y: numberBarView.frame.origin.y + numberBarView.frame.height, width: screenWidth, height: 40))
+        sliderBarView = UIView(frame: CGRect(x: 0, y: numberBarView.frame.origin.y + numberBarView.frame.height, width: screenWidth, height: 40))
         sliderBarView.backgroundColor = UIColor.lightGrayColor()
         
         view.addSubview(sliderBarView)
         
         // Uislider
         
-        var numberSlider = UISlider(frame: sliderBarView.bounds)
+        numberSlider = UISlider(frame: sliderBarView.bounds)
         numberSlider.minimumValue = Float(minValue)
         numberSlider.maximumValue = Float(maxValue)
         //order mater this has to come afterwards
@@ -74,12 +79,32 @@ class ViewController: UIViewController {
         numberSlider.addTarget(self, action: Selector("numberSliderChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         
         // text view
+        let textAreaY = sliderBarView.frame.origin.y + sliderBarView.frame.height
+        let textAreaHeight = screenHeight - textAreaY
+        textView = UITextView(frame: CGRect(x: 0, y: textAreaY, width: screenWidth, height:textAreaHeight))
+        textView.backgroundColor = UIColor.whiteColor()
         
+        textView.text = "Line 1\nLine 2"
+        textView.font = UIFont.systemFontOfSize(20)
+        textView.textAlignment = NSTextAlignment.Center
+        
+        view.addSubview(textView)
+        
+        textView.text = generateMuliplicationTable(number)
+    }
+    
+    func generateMuliplicationTable(value: Int) -> String {
+        var output = ""
+        for i in minValue...maxValue {
+            output += "\(i) x \(value) = \(i * value)\n"
+        }
+        return output
     }
     
     func numberSliderChanged(slider: UISlider) {
         number = Int(slider.value)
         numberLabel.text = "\(number)"
+        textView.text = generateMuliplicationTable(number)
         
     }
 
