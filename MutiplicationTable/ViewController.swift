@@ -9,6 +9,12 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    // Create properties
+    var numberLabel: UILabel!
+    var number: Int = 10
+    var minValue = 1
+    var maxValue = 12
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +36,7 @@ class ViewController: UIViewController {
         let screenHeight = UIScreen.mainScreen().bounds.size.height
         
         // text label
-        var numberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        numberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         numberLabel.backgroundColor = UIColor.orangeColor()
         numberLabel.text = "10"
         numberLabel.textAlignment = NSTextAlignment.Center
@@ -58,9 +64,22 @@ class ViewController: UIViewController {
         // Uislider
         
         var numberSlider = UISlider(frame: sliderBarView.bounds)
+        numberSlider.minimumValue = Float(minValue)
+        numberSlider.maximumValue = Float(maxValue)
+        //order mater this has to come afterwards
+        numberSlider.value = Float(number)
         sliderBarView.addSubview(numberSlider)
         
+        // target/ action to connect the events
+        numberSlider.addTarget(self, action: Selector("numberSliderChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        
         // text view
+        
+    }
+    
+    func numberSliderChanged(slider: UISlider) {
+        number = Int(slider.value)
+        numberLabel.text = "\(number)"
         
     }
 
