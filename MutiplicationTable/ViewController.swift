@@ -36,9 +36,17 @@ class ViewController: UIViewController {
         numberLabel.textAlignment = NSTextAlignment.Center
         numberLabel.font = UIFont.boldSystemFontOfSize(40)
         
-        view.addSubview(numberLabel)
+        //view.addSubview(numberLabel)
         
         // view behind text label
+        
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        var numberBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: screenWidth, height: 80))
+        numberBarView.backgroundColor = UIColor.darkGrayColor()
+        
+        view.addSubview(numberBarView)
+        numberBarView.addSubview(numberLabel)
+        numberLabel.center = CGPoint(x: numberBarView.bounds.size.width / 2, y: numberBarView.bounds.size.height / 2)
         
         // Slider View
         
