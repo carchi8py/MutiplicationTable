@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     var number: Int = 10
     var minValue = 1
-    var maxValue = 99
+    var maxValue = 24
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +46,9 @@ class ViewController: UIViewController {
         numberLabel.text = "\(number)"
         numberLabel.textAlignment = NSTextAlignment.Center
         numberLabel.font = UIFont.boldSystemFontOfSize(40)
+        
+        numberLabel.layer.cornerRadius = 20
+        numberLabel.clipsToBounds = true
         
         //view.addSubview(numberLabel)
         
