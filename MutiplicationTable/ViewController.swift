@@ -58,7 +58,6 @@ class ViewController: UIViewController {
         numberBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: screenWidth, height: 80))
         numberBarView.backgroundColor = UIColor.darkGrayColor()
         
-        view.addSubview(numberBarView)
         numberBarView.addSubview(numberLabel)
         numberLabel.center = CGPoint(x: numberBarView.bounds.size.width / 2, y: numberBarView.bounds.size.height / 2)
         
@@ -67,7 +66,20 @@ class ViewController: UIViewController {
         sliderBarView = UIView(frame: CGRect(x: 0, y: numberBarView.frame.origin.y + numberBarView.frame.height, width: screenWidth, height: 40))
         sliderBarView.backgroundColor = UIColor.lightGrayColor()
         
+        let sliderBarEndY = sliderBarView.frame.origin.y
+        let sliderBarStartY = sliderBarEndY - sliderBarView.frame.size.height
+        sliderBarView.frame.origin.y = sliderBarStartY
+        
+        //animate
+        UIView.animateWithDuration(1.5, delay: 1.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            
+            self.sliderBarView.frame.origin.y = sliderBarEndY
+            
+            }, completion: nil)
+        
         view.addSubview(sliderBarView)
+        //We want this on top of slider bar.
+        view.addSubview(numberBarView)
         
         // Uislider
         
