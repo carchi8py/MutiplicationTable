@@ -49,8 +49,16 @@ class ViewController: UIViewController {
         numberLabel.center = CGPoint(x: numberBarView.bounds.size.width / 2, y: numberBarView.bounds.size.height / 2)
         
         // Slider View
+        //If you use numberBarView.bound.height it is the hight of the object, not where it is on the screen.
+        var sliderBarView = UIView(frame: CGRect(x: 0, y: numberBarView.frame.origin.y + numberBarView.frame.height, width: screenWidth, height: 40))
+        sliderBarView.backgroundColor = UIColor.lightGrayColor()
+        
+        view.addSubview(sliderBarView)
         
         // Uislider
+        
+        var numberSlider = UISlider(frame: sliderBarView.bounds)
+        sliderBarView.addSubview(numberSlider)
         
         // text view
         
